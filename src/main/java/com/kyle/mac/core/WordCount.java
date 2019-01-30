@@ -25,6 +25,7 @@ public class WordCount {
         List<Tuple2<String, Integer>> collect = res.collect();
         System.out.println(collect);
 
+
     }
 
 }
