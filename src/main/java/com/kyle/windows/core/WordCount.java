@@ -16,9 +16,11 @@ public class WordCount {
         String filePaht = "hdfs://cdh01:8020/tmp/access_2013_05_31.log";
         System.setProperty("HADOOP_USER_NAME","root");
         JavaSparkContext jsc = SparkUtils.getJscOnYarn();
+        jsc.setLogLevel("WARN");
         jsc.addJar(jarFile);
         JavaRDD<String> linesRdd = jsc.textFile(filePaht);
         JavaPairRDD<String, Integer> res = linesRdd
+                .repartition(3)
                 .flatMap(line -> Arrays.asList(line.split(" ")).iterator())
                 .mapToPair(word -> new Tuple2<>(word, 1))
                 .reduceByKey((v1, v2) -> v1 + v2);

@@ -22,7 +22,6 @@ public class SparkUtils {
                 .setAppName("spatk230Test")
                 .setMaster("yarn");
         JavaSparkContext jsc = new JavaSparkContext(sparkConf);
-        jsc.setLogLevel("WARN");
         return jsc;
     }
 
